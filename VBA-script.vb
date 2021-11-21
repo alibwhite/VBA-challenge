@@ -14,9 +14,11 @@ total_stock_volume = 0
 Dim summary_table_row as Integer
 summary_table_row = 2
 
-    For i = 2 to 71226
+    For i = 2 to 797711
 
-        If Cells(i-1,1).Value <> Cells(i,1).Value Then
+        If Cells(i-1,1).Value <> Cells(i,1).Value and Cells(i,3).Value <>0 Then
+            year_open = Cells(i,3).Value
+        ElseIf Cells(i-1,3).Value = 0 and Cells(i,3).Value <> 0 then 
             year_open = Cells(i,3).Value
         ElseIf Cells(i+1,1).Value <> Cells(i,1).Value Then
             ticker = Cells(i,1).Value
@@ -34,6 +36,23 @@ summary_table_row = 2
         End if
 
     Next i 
+
+Dim greatest_increase as Double
+Dim greatest_decrease as Double
+Dim greatest_stock_volume as Double
+Dim percent_rng as Range
+Dim volume_rng as Range
+
+    Set percent_rng = Range("K2:K3169")
+    Set volume_rng = Range("L2:L3169")
+
+    greatest_increase = Application.WorksheetFunction.Max(percent_rng)
+    greatest_decrease = Application.WorksheetFunction.Min(percent_rng)
+    greatest_stock_volume = Application.WorksheetFunction.Max(volume_rng)
+
+    Range("P2").Value = greatest_increase
+    Range("P3").Value = greatest_decrease
+    Range("P4").Value = greatest_stock_volume
 
 End Sub
 
