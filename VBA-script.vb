@@ -14,6 +14,16 @@ total_stock_volume = 0
 Dim summary_table_row as Integer
 summary_table_row = 2
 
+Range("I1").Value = "Ticker"
+Range("J1").Value = "Yearly Change"
+Range("K1").Value = "% Change"
+Range("L1").Value = "Total Stock Volume"
+Range("N2").Value = "Greatest % Increase"
+Range("N3").Value = "Greatest % Decrease"
+Range("N4").Value = "Greatest Stock Volume"
+Range("O1").Value = "Ticker"
+Range("P1").Value = "Value"
+
     For i = 2 to 797711
 
         If Cells(i-1,1).Value <> Cells(i,1).Value and Cells(i,3).Value <>0 Then
@@ -49,6 +59,17 @@ Dim volume_rng as Range
     greatest_increase = Application.WorksheetFunction.Max(percent_rng)
     greatest_decrease = Application.WorksheetFunction.Min(percent_rng)
     greatest_stock_volume = Application.WorksheetFunction.Max(volume_rng)
+
+    For j = 2 to 3169
+        If Cells(j,11).Value = greatest_increase then
+            Range("O2").Value = Cells(j,9).Value
+        ElseIf Cells(j,11).Value = greatest_decrease then
+            Range("O3").Value = Cells(j,9).Value
+        ElseIf Cells(j,12).Value = greatest_stock_volume then
+            Range("O4").Value = Cells(j,9).Value
+        Else
+        End if
+    Next j 
 
     Range("P2").Value = greatest_increase
     Range("P3").Value = greatest_decrease
